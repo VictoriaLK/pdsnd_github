@@ -15,5 +15,5 @@ new-york-city.csv
 washington.csv
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+https://en.wikipedia.org/wiki/List_of_the_verified_oldest_people
 
