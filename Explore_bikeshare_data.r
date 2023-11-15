@@ -33,18 +33,21 @@ summary(ny$Birth.Year)
 summary(chi$Gender)
 summary(chi$Birth.Year)
 
-new_ny = subset(ny, !is.na(ny$Birth.Year))
-new_ny <- new_ny[order(new_ny$Birth.Year),]
-new_ny <- new_ny[-(1:16),] #removes the rows with Birth.Year 1885-1901 as https://en.wikipedia.org/wiki/List_of_the_verified_oldest_people shows that no such male was alive in 2017
-new_chi = subset(chi, !is.na(chi$Birth.Year))
-new_chi <- new_chi[order(new_chi$Birth.Year),]
-new_chi <- new_chi[-(1:5),] #no men who were born in 1899-1901 were alive in 2017 - removing these outliers
+filter_df <- function(datset, end_row){
+    new_df = subset(dataset, !is.na(dataset$Birth.Year))
+    new_df <- new_df[order(new_df$Birth.Year),]
+    new_df <- new_df[-(1:end_row),]
+    new_df <- subset(new_df, !new_df$Gender=='')
+    return(new_df)
+}
+ny_end_row = 16 #removes the rows with Birth.Year 1885-1901 as https://en.wikipedia.org/wiki/List_of_the_verified_oldest_people shows that no such male was alive in 2017
+chi_end_row = 5 #no men who were born in 1899-1901 were alive in 2017 - removing these outliers
 
-p <- ggplot(aes(x=Birth.Year), data=subset(new_ny, !new_ny$Gender==''))
+p <- ggplot(aes(x=Birth.Year), data=filter_df(ny, ny_end_row))
 p <- p + geom_histogram(stat='count', color='blue') + facet_wrap(~Gender)
 p + labs(y='Number of users born per year', x='Birth years', title='Female and male users by birth year in NYC')
 
-p <- ggplot(aes(x=Birth.Year), data=subset(new_chi, !new_chi$Gender==''))
+p <- ggplot(aes(x=Birth.Year), data=filter_df(chi, chi_end_row))
 p <- p + geom_histogram(stat='count', color='orange') + facet_wrap(~Gender)
 p + labs(y='Number of users born per year', x='Birth years', title='Female and male users by birth year in Chicago')
 
