@@ -1,3 +1,4 @@
+# Exploring Bike Rentals in Chicago, NYC and Washington DC.
 
 ny = read.csv('new_york_city.csv')
 wash = read.csv('washington.csv')
