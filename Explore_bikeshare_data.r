@@ -2,16 +2,12 @@
 ny = read.csv('new_york_city.csv')
 wash = read.csv('washington.csv')
 chi = read.csv('chicago.csv')
-
-head(ny)
-head(wash)
-head(chi)
+library(ggplot2)
 
 # Question 1
 summary(chi$Trip.Duration)
 summary(ny$Trip.Duration)
 summary(wash$Trip.Duration)
-library(ggplot2)
 
 chi_mean <- summary(chi$Trip.Duration)['Mean']
 ny_mean <- summary(ny$Trip.Duration)['Mean']
@@ -19,7 +15,6 @@ wash_mean <- summary(wash$Trip.Duration)['Mean']
 mean_data <- data.frame(City=c('chicago', 'new york', 'washington'), Mean=c(chi_mean, ny_mean, wash_mean))
 mean_data
 
-#df <- as.data.frame(chi_td)
 p <- ggplot() + coord_cartesian(ylim = c(0,3000)) 
 p <- p + geom_boxplot(aes(x='chicago', y=Trip.Duration), data=chi, color='red') 
 p <- p + geom_boxplot(aes(x='new york', y=Trip.Duration), data=ny, color='green') 
@@ -59,9 +54,6 @@ p <- p + scale_color_manual(name='City', breaks=c('Chicago', 'NYC'), values=c('C
 p + theme(legend.position='top', legend.title=element_blank())
 
 # Question 3
-head(chi)
-class(chi$Start.Time)
-
 chi_hrs = substr(chi$Start.Time, 12, 13) #selects the hour value
 p <- ggplot() + geom_bar(aes(x=chi_hrs), fill='darkorange2') + theme_minimal()
 p + labs(y='Number of bike rentals', x='Hours of the day', title='Most popular times of the day for bike rentals in Chicago')
