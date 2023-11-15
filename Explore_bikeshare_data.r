@@ -59,30 +59,28 @@ p <- p + scale_color_manual(name='City', breaks=c('Chicago', 'NYC'), values=c('C
 p + theme(legend.position='top', legend.title=element_blank())
 
 # Question 3
-chi_hrs = substr(chi$Start.Time, 12, 13) #selects the hour value
-p <- ggplot() + geom_bar(aes(x=chi_hrs), fill='darkorange2') + theme_minimal()
-p + labs(y='Number of bike rentals', x='Hours of the day', title='Most popular times of the day for bike rentals in Chicago')
 
-ny_hrs = substr(ny$Start.Time, 12, 13) #selects the hour value
-p <- ggplot() + geom_bar(aes(x=ny_hrs), fill='aquamarine4') + theme_minimal()
-p + labs(y='Number of bike rentals', x='Hours of the day', title='Most popular times of the day for bike rentals in New York')
+pophours_graph <- function(dataset, color_str){
+    hrs = substr(dataset$Start.Time, 12, 13) #selects the hour value
+    p <- ggplot() + geom_bar(aes(x=hrs), fill=color_str) + theme_minimal() + labs(y='Number of bike rentals', x='Hours of the day')
+    return(p)
+}
 
-wash_hrs = substr(wash$Start.Time, 12, 13) #selects the hour value
-p <- ggplot() + geom_bar(aes(x=wash_hrs), fill='cornflowerblue') + theme_minimal()
-p + labs(y='Number of bike rentals', x='Hours of the day', title='Most popular times of the day for bike rentals in Washington')
+pophours_graph(chi, 'darkorange2') + ggtitle('Most popular times of the day for bike rentals in Chicago')
 
-chi_hrs_count = as.data.frame(table(factor(chi_hrs)))
-colnames(chi_hrs_count)[1] <- 'Hour'
+pophours_graph(ny, 'aquamarine4') + ggtitle('Most popular times of the day for bike rentals in New York')
 
-ny_hrs_count = as.data.frame(table(factor(ny_hrs)))
-colnames(ny_hrs_count)[1] <- 'Hour'
+pophours_graph(wash, 'cornflowerblue') + ggtitle('Most popular times of the day for bike rentals in Washington')
 
-wash_hrs_count = as.data.frame(table(factor(wash_hrs)))
-colnames(wash_hrs_count)[1] <- 'Hour'
+hrs_count <- function(dataset){
+    hrs_count_df = as.data.frame(table(factor(substr(dataset$Start.Time, 12, 13))))
+    colnames(hrs_count_df)[1] <- 'Hour'
+    return(hrs_count_df)
+}
 
-p <- ggplot() + geom_line(aes(x=Hour, y=Freq, group=1, color='Chicago'), data=chi_hrs_count) 
-p <- p + geom_line(aes(x=Hour, y=Freq, group=1, color='NYC'), data=ny_hrs_count)
-p <- p + geom_line(aes(x=Hour, y=Freq, group=1, color='Washington'), data=wash_hrs_count)
+p <- ggplot() + geom_line(aes(x=Hour, y=Freq, group=1, color='Chicago'), data=hrs_count(chi)) 
+p <- p + geom_line(aes(x=Hour, y=Freq, group=1, color='NYC'), data=hrs_count(ny))
+p <- p + geom_line(aes(x=Hour, y=Freq, group=1, color='Washington'), data=hrs_count(wash))
 p <- p + labs(y='Number of bike rentals', x='Hours of the day', title='Most popular times of the day for bike rentals')
 p <- p + scale_color_manual(breaks=c('Chicago', 'NYC', 'Washington'), values=c('Chicago'='darkorange2', 'NYC'='aquamarine4', 'Washington'='cornflowerblue'))
 p + theme(legend.position='top', legend.title=element_blank())
