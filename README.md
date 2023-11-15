@@ -7,7 +7,7 @@
 Exploring Bike Rentals in Chicago, NYC and Washington DC.
 
 ### Description
-In this project I analyze the data provided for bike rentals in three cities. I analyze three questions and create interesting, relevant visualisations. 
+In this project I analyze the data provided for bike rentals in three cities. I analyze three questions and create interesting, relevant visualisations. First I explore how trip durations vary across Chicago, NYC and Washington DC. For my second question I look at how user birth years differ by gender in NYC and Chicago. And lastly I analyze what the most popular times in the day are for bike rentals in each city. 
 
 ### Files used
 chicago.csv
