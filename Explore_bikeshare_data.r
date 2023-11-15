@@ -4,17 +4,13 @@ wash = read.csv('washington.csv')
 chi = read.csv('chicago.csv')
 
 head(ny)
-
 head(wash)
-
 head(chi)
 
+# Question 1
 summary(chi$Trip.Duration)
-
 summary(ny$Trip.Duration)
-
 summary(wash$Trip.Duration)
-
 library(ggplot2)
 
 chi_mean <- summary(chi$Trip.Duration)['Mean']
@@ -31,6 +27,7 @@ p <- p + geom_boxplot(aes(x='washington', y=Trip.Duration), data=wash, color='bl
 p <- p + labs(title='Trip Durations across Chicago, New York and Washington', x='City', y='Trip Duration (s)')
 p + geom_point(aes(x=City, y=Mean), data=mean_data, color=c('red', 'green', 'blue'), size=3, shape=18)
 
+# Question 2
 nrow(ny)
 nrow(chi)
 
@@ -61,8 +58,8 @@ p <- p + labs(y='Number of users born per year', x='Birth years', title='Female 
 p <- p + scale_color_manual(name='City', breaks=c('Chicago', 'NYC'), values=c('Chicago'='orange', 'NYC'='blue'))
 p + theme(legend.position='top', legend.title=element_blank())
 
+# Question 3
 head(chi)
-
 class(chi$Start.Time)
 
 chi_hrs = substr(chi$Start.Time, 12, 13) #selects the hour value
