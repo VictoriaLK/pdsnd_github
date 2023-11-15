@@ -15,10 +15,12 @@ wash_mean <- summary(wash$Trip.Duration)['Mean']
 mean_data <- data.frame(City=c('chicago', 'new york', 'washington'), Mean=c(chi_mean, ny_mean, wash_mean))
 mean_data
 
+add_boxplot <- function(name_str, city_data, color_str){
+    return(geom_boxplot(aes(x=name_str, y=Trip.Duration), data=city_data, color=color_str))
+}
+
 p <- ggplot() + coord_cartesian(ylim = c(0,3000)) 
-p <- p + geom_boxplot(aes(x='chicago', y=Trip.Duration), data=chi, color='red') 
-p <- p + geom_boxplot(aes(x='new york', y=Trip.Duration), data=ny, color='green') 
-p <- p + geom_boxplot(aes(x='washington', y=Trip.Duration), data=wash, color='blue') 
+p <- p + add_boxplot('chicago', chi, 'red') + add_boxplot('new york', ny, 'green') + add_boxplot('washington', wash, 'blue') 
 p <- p + labs(title='Trip Durations across Chicago, New York and Washington', x='City', y='Trip Duration (s)')
 p + geom_point(aes(x=City, y=Mean), data=mean_data, color=c('red', 'green', 'blue'), size=3, shape=18)
 
