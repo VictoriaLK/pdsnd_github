@@ -7,10 +7,12 @@
 Exploring Bike Rentals in Chicago, NYC and Washington DC.
 
 ### Description
-Describe what your project is about and what it does
+In this project I analyze the data provided for bike rentals in three cities. I analyze three questions and create interesting, relevant visualisations. 
 
 ### Files used
-Include the files used
+chicago.csv
+new-york-city.csv
+washington.csv
 
 ### Credits
 It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
